@@ -19,9 +19,9 @@ export class LoginComponentComponent implements OnInit {
   constructor() { }
 
 
-  login(){
-    var acno=this.acno;
-    var pwd=this.pwd;
+  login(u:any,p:any){
+    var acno=u.value;
+    var pwd=p.value;
 
     let accDetails=this.users
     if(acno in accDetails){
@@ -39,11 +39,11 @@ export class LoginComponentComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  accountNumber(event:any){
-    this.acno=event.target.value
-  }
-  password(event:any){
-    this.pwd=event.target.value
-  }
+  // accountNumber(event:any){
+  //   this.acno=event.target.value
+  // }
+  // password(event:any){
+  //   this.pwd=event.target.value
+  // }
   
 }
