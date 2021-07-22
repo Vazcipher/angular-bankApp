@@ -2,22 +2,26 @@
     <div class="login-div">
         <div class="row">
             <div class="col"></div>
-            <div class="col" style=" background-color: white; border: 2px solid #08326e;;">
+            <div class="col" style=" background-color: white; border: 2px solid #08326e;">
                 <h3 style="text-align: center;">{{aim}}</h3>
                 <h2 style="text-align: center;">Login</h2>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="uname" [value]="acNumber" #uname  placeholder="username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <form (ngSubmit)="login()">
+
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="acno" name="acno" [(ngModel)]="acno" placeholder="username" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <!-- (change)="accountNumber($event)" -->
                   </div>
                   <div class="input-group mb-3">
-                    <input type="password" class="form-control" id="pwd" placeholder="password" #pwd aria-label="password" aria-describedby="basic-addon2">
+                    <input type="password" class="form-control" id="pwd" name="pwd" [(ngModel)]="pwd" placeholder="password" aria-label="password" aria-describedby="basic-addon2">
                   </div>
                   <div class="input-group mb-3">
                     <p style="color: red;" id="error"></p>  
                   </div>
                   <div class="input-group mb-3 login-btn-center">
-                    <button (click)="login(uname,pwd)" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a routerLink="register">SignUp</a>
                   </div>
+                </form>
             </div>
             <div class="col"></div>
         </div>
