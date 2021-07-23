@@ -7,9 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  accno=""
+  pwd=""
+  amount=""
+
+  accno1=""
+  pwd1=""
+  amount1=""
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+  deposit(){
+    alert("desposit success")
+  }
+
+  withdraw(){
+    alert("dwposit success")
   }
 
 }

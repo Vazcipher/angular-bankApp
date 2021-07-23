@@ -1,1 +1,55 @@
-<p>dashboard works!</p>
+<div  class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div  class="bank-account">
+            
+                <h2 style="text-align: center; color: white; margin-top: 100px;">Deposit</h2>
+                    <form (ngSubmit)="deposit()">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="accno" [(ngModel)]="accno" id="acc_no" placeholder="Account Number">
+                        </div>
+                        <span style="color: red" id="error"></span>
+
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" name="pwd" [(ngModel)]="pwd" id="pwd" placeholder="Password">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control" name="amount" [(ngModel)]="amount" id="amount" placeholder="Amount">
+                        </div>
+                        <div style="text-align: center;" class="input-group mb-3">
+                            <button type="submit" style="margin-left: auto; margin-right: auto;" class="btn btn-success">Register</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+        <div class="col"></div>
+        </div>
+        <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div  class="bank-account">
+            
+                <h2 style="text-align: center; color: white; margin-top: 100px;">Withdraw</h2>
+                    <form (ngSubmit)="withdraw()">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="accno1" [(ngModel)]="accno1" id="acc_no" placeholder="Account Number">
+                        </div>
+                        <span style="color: red" id="error"></span>
+
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" name="pwd1" [(ngModel)]="pwd1" id="pwd" placeholder="Password">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control" name="amount1" [(ngModel)]="amount1" id="amount" placeholder="Amount">
+                        </div>
+                        <div style="text-align: center;" class="input-group mb-3">
+                            <button type="submit" style="margin-left: auto; margin-right: auto;" class="btn btn-success">Register</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+        <div class="col"></div>
+        </div>
+    </div>
+   
