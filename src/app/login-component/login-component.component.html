@@ -5,14 +5,14 @@
             <div class="col" style=" background-color: white; border: 2px solid #08326e;">
                 <h3 style="text-align: center;">{{aim}}</h3>
                 <h2 style="text-align: center;">Login</h2>
-                <form (ngSubmit)="login()">
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
 
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="acno" name="acno" [(ngModel)]="acno" placeholder="username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control" id="acno" name="acno" formControlName="acno" placeholder="username" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <!-- (change)="accountNumber($event)" -->
                   </div>
                   <div class="input-group mb-3">
-                    <input type="password" class="form-control" id="pwd" name="pwd" [(ngModel)]="pwd" placeholder="password" aria-label="password" aria-describedby="basic-addon2">
+                    <input type="password" class="form-control" id="pwd" name="pwd" formControlName="pwd" placeholder="password" aria-label="password" aria-describedby="basic-addon2">
                   </div>
                   <div class="input-group mb-3">
                     <p style="color: red;" id="error"></p>  

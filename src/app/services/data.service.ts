@@ -53,11 +53,11 @@ export class DataService {
         return accDetails[acno]["balance"];
       }
       else{
-        return -1
+      alert("Invalid Password")
       }
     }
     else{
-      return 0
+      alert("User not found")
     }
   }
 

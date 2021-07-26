@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -13,8 +14,12 @@ export class LoginComponentComponent implements OnInit {
   aim="Welcome to SBL"
   acNumber="Account Number Please"
   
+  loginForm=this.fb.group({
+    acno:[''],
+    pwd:['']
+  })
 
-  constructor(private router:Router,private ds:DataService) { }
+  constructor(private router:Router,private ds:DataService, private fb:FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -25,8 +30,8 @@ export class LoginComponentComponent implements OnInit {
   //   this.pwd=event.target.value
   // }
   login(){
-    var uname=this.acno;
-    var password=this.pwd;
+    var uname=this.loginForm.value.acno;
+    var password=this.loginForm.value.pwd;
 
     var LogInResult=this.ds.login(uname,password)
     console.log(LogInResult);

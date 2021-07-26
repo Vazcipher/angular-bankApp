@@ -5,14 +5,14 @@
             <div  class="bank-account">
             
                 <h2 style="text-align: center; color: white; margin-top: 100px;">Register Bank Account</h2>
-                    <form (ngSubmit)="register()">
+                    <form [formGroup]="registerForm" (ngSubmit)="register()">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="accno" [(ngModel)]="accno" id="acc_no" placeholder="Account Number">
+                            <input type="text" class="form-control" name="accno" formControlName="acno" id="acc_no" placeholder="Account Number">
                         </div>
                         <span style="color: red" id="error"></span>
 
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="name" [(ngModel)]="name" id="nme" placeholder="User Name">
+                            <input type="text" class="form-control" name="name" formControlName="name" id="nme" placeholder="User Name">
                         </div>  
                         <!-- <div class="input-group mb-3">
                             <input type="text" class="form-control" id="bal" placeholder="Balance">
@@ -21,7 +21,7 @@
                             <input type="text" class="form-control" id="mob" placeholder="Mobile Number">
                         </div> -->
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" name="pwd" [(ngModel)]="pwd" id="pwd" placeholder="Password">
+                            <input type="password" class="form-control" name="pswd" formControlName="pswd" id="pwd" placeholder="Password">
                         </div>
                         <div style="text-align: center;" class="input-group mb-3">
                             <button type="submit" style="margin-left: auto; margin-right: auto;" class="btn btn-success">Register</button>
