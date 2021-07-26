@@ -25,22 +25,40 @@ export class LoginComponentComponent implements OnInit {
   //   this.pwd=event.target.value
   // }
   login(){
-    var acno=this.acno;
-    var pwd=this.pwd;
-    console.log(acno,pwd);
+    var uname=this.acno;
+    var password=this.pwd;
+
+    var LogInResult=this.ds.login(uname,password)
+    console.log(LogInResult);
     
-    let accDetails=this.ds.users;
-    if(acno in accDetails){
-        if(pwd == accDetails[acno]["password"]){
+    if(LogInResult==1){
           alert("Login success")
           this.router.navigateByUrl("dashboard")
-        }
-        else{
-          alert("Invalid  password")
-        }
+    }
+    else if(LogInResult==-1){
+      alert("Invalid Passsword")
     }
     else{
-      alert("Invalid user")
+      alert("Invalid User")
     }
   }
+  // login(){
+  //   var acno=this.acno;
+  //   var pwd=this.pwd;
+  //   console.log(acno,pwd);
+    
+  //   let accDetails=this.ds.users;
+  //   if(acno in accDetails){
+  //       if(pwd == accDetails[acno]["password"]){
+  //         alert("Login success")
+  //         this.router.navigateByUrl("dashboard")
+  //       }
+  //       else{
+  //         alert("Invalid  password")
+  //       }
+  //   }
+  //   else{
+  //     alert("Invalid user")
+  //   }
+  // }
 }

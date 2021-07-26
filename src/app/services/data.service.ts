@@ -12,6 +12,22 @@ export class DataService {
   }
 
   constructor() { }
+
+  login(acno:any,pwd:any){
+    let userDetails=this.users
+    if(acno in userDetails){
+      if(pwd==userDetails[acno]["password"]){
+        return 1
+      }
+      else{
+        return -1
+      }
+    }
+    else{
+      return 0;
+    }
+  }
+
   register(acno:any,username:any,password:any){
       let accDetails=this.users;
       if(acno in accDetails){
@@ -26,5 +42,46 @@ export class DataService {
         }
         return true;
       }
+  }
+
+  deposit(acno:any,password:any,amount:any){
+    let accDetails=this.users
+    var amt=parseInt(amount)
+    if(acno in accDetails){
+      if(password == accDetails[acno]["password"]){
+        accDetails[acno]["balance"]+=amt
+        return accDetails[acno]["balance"];
+      }
+      else{
+        return -1
+      }
+    }
+    else{
+      return 0
+    }
+  }
+
+  withdrawal(acno:any,pwd:any,amount:any){
+    let accDetails=this.users
+    var amt=parseInt(amount);
+    if(acno in accDetails){
+      if(pwd==accDetails[acno]["password"]){
+        if(accDetails[acno]["balance"]<amt){
+          alert("Insufficient balance")
+        }
+        else{
+          accDetails[acno]["balance"]-=amt
+          return accDetails[acno]["balance"]
+        }
+      }
+      else{
+        alert("Invalid Password")
+        return false
+      }
+    }
+    else{
+      alert("Invalid user")
+      return false
+    }
   }
 }
