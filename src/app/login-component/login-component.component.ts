@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -15,8 +15,8 @@ export class LoginComponentComponent implements OnInit {
   acNumber="Account Number Please"
   
   loginForm=this.fb.group({
-    acno:[''],
-    pwd:['']
+    acno:['',[Validators.required,Validators.pattern('[0-9]*'),Validators.minLength(4)]],
+    pwd:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]*'),Validators.minLength(4)]]
   })
 
   constructor(private router:Router,private ds:DataService, private fb:FormBuilder) { }
@@ -30,22 +30,29 @@ export class LoginComponentComponent implements OnInit {
   //   this.pwd=event.target.value
   // }
   login(){
-    var uname=this.loginForm.value.acno;
-    var password=this.loginForm.value.pwd;
 
-    var LogInResult=this.ds.login(uname,password)
-    console.log(LogInResult);
-    
-    if(LogInResult==1){
-          alert("Login success")
-          this.router.navigateByUrl("dashboard")
-    }
-    else if(LogInResult==-1){
-      alert("Invalid Passsword")
+    if(this.loginForm.valid){
+      var uname=this.loginForm.value.acno;
+      var password=this.loginForm.value.pwd;
+  
+      var LogInResult=this.ds.login(uname,password)
+      console.log(LogInResult);
+      
+      if(LogInResult==1){
+            alert("Login success")
+            this.router.navigateByUrl("dashboard")
+      }
+      else if(LogInResult==-1){
+        alert("Invalid Passsword")
+      }
+      else{
+        alert("Invalid User")
+      }
     }
     else{
-      alert("Invalid User")
+      alert("Invalid Form")
     }
+    
   }
   // login(){
   //   var acno=this.acno;

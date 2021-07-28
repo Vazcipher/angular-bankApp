@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -16,9 +16,9 @@ export class RegisterComponent implements OnInit {
   accno:any=""
   
   registerForm=this.fb.group({
-    name:[''],
-    acno:[''],
-    pswd:['']
+    name:['',[Validators.required,Validators.pattern('[a-zA-z]*')]],
+    acno:['',[Validators.required,Validators.pattern('[0-9]*'),Validators.minLength(4)]],
+    pswd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
   })
 
   constructor(private ds:DataService,private router:Router,private fb:FormBuilder) { }
@@ -27,21 +27,28 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    var uname=this.registerForm.value.name;
-    var pwd=this.registerForm.value.pswd;
-    var accno=this.registerForm.value.acno
-    console.log(uname,pwd,accno);
-    
-    var result=this.ds.register(accno,uname,pwd)
 
-    if(result){
-      alert("Successfully registered")
-      this.router.navigateByUrl("")
+    if(this.registerForm.valid){
+      var uname=this.registerForm.value.name;
+      var pwd=this.registerForm.value.pswd;
+      var accno=this.registerForm.value.acno
+      console.log(uname,pwd,accno);
+      
+      var result=this.ds.register(accno,uname,pwd)
+  
+      if(result){
+        alert("Successfully registered")
+        this.router.navigateByUrl("")
+      }
+      else{
+        alert("User already exist")
+        this.router.navigateByUrl("")
+      }
     }
     else{
-      alert("User already exist")
-      this.router.navigateByUrl("")
+      alert("Invalid From")
     }
+    
   }
 
-}21487433
+}

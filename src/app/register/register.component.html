@@ -9,11 +9,13 @@
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name="accno" formControlName="acno" id="acc_no" placeholder="Account Number">
                         </div>
-                        <span style="color: red" id="error"></span>
+                        <div *ngIf="(this.registerForm.get('acno')?.touched || this.registerForm.get('acno')?.dirty) && (this.registerForm.get('acno')?.errors)" class="error">Invalid Account Number</div>
 
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name="name" formControlName="name" id="nme" placeholder="User Name">
                         </div>  
+                        <div *ngIf="(this.registerForm.get('name')?.touched || this.registerForm.get('name')?.dirty) && (this.registerForm.get('name')?.errors)" class="error">Invalid User Name</div>
+
                         <!-- <div class="input-group mb-3">
                             <input type="text" class="form-control" id="bal" placeholder="Balance">
                         </div> -->
@@ -23,6 +25,8 @@
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" name="pswd" formControlName="pswd" id="pwd" placeholder="Password">
                         </div>
+                        <div *ngIf="(this.registerForm.get('pswd')?.touched || this.registerForm.get('pswd')?.dirty) && (this.registerForm.get('pswd')?.errors)" class="error">Invalid Password</div>
+
                         <div style="text-align: center;" class="input-group mb-3">
                             <button type="submit" style="margin-left: auto; margin-right: auto;" class="btn btn-success">Register</button>
                         </div>

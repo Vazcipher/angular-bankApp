@@ -11,9 +11,12 @@
                     <input type="text" class="form-control" id="acno" name="acno" formControlName="acno" placeholder="username" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <!-- (change)="accountNumber($event)" -->
                   </div>
+                  <div *ngIf="(this.loginForm.get('acno')?.touched || this.loginForm.get('acno')?.dirty) && (this.loginForm.get('acno')?.errors)" class="error">Invalid Account Number</div>
                   <div class="input-group mb-3">
                     <input type="password" class="form-control" id="pwd" name="pwd" formControlName="pwd" placeholder="password" aria-label="password" aria-describedby="basic-addon2">
                   </div>
+                  <div *ngIf="(this.loginForm.get('pwd')?.touched || this.loginForm.get('pwd')?.dirty) && (this.loginForm.get('pwd')?.errors)" class="error">Invalid Password Number</div>
+
                   <div class="input-group mb-3">
                     <p style="color: red;" id="error"></p>  
                   </div>
