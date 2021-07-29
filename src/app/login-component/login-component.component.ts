@@ -36,7 +36,7 @@ export class LoginComponentComponent implements OnInit {
       var password=this.loginForm.value.pwd;
   
       var LogInResult=this.ds.login(uname,password)
-      console.log(LogInResult);
+      // console.log(LogInResult);
       
       if(LogInResult==1){
             alert("Login success")

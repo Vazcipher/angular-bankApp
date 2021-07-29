@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
     pwd1:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]*'),Validators.minLength(4)]],
     amount1:['',[Validators.required,Validators.pattern('[0-9]*'),Validators.minLength(4)]]
   })
-  user=this.db.currentUser;
+  user=this.db.currentUser
   constructor(private db:DataService,private router:Router,private fb:FormBuilder) { }
 
  

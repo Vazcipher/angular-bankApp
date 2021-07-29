@@ -8,11 +8,13 @@ import { Injectable } from '@angular/core';
 export class DataService {
 
   currentUser=""
+  currentAcc=""
+  currentBalance=""
 
   users:any = {
-    1001:{ acno:1001, username:"Vasif", password:"12345", balance:5000},
-    1002:{ acno:1002, username:"basil", password:"basil", balance:50000},
-    1003:{ acno:1003, username:"sabith", password:"sabith", balance:1000}
+    1001:{ acno:1001, username:"Vasif", password:"12345", balance:5000,transaction:[]},
+    1002:{ acno:1002, username:"basil", password:"basil", balance:50000,transaction:[]},
+    1003:{ acno:1003, username:"sabith", password:"sabith", balance:1000,transaction:[]}
   }
 
   constructor() {
@@ -22,17 +24,38 @@ export class DataService {
   saveDetails(){
     localStorage.setItem("users",JSON.stringify(this.users))
 
+    if(this.currentAcc){
+      localStorage.setItem("currentAcc",JSON.stringify(this.currentAcc))
+    }
+
     if(this.currentUser){
       localStorage.setItem("currentUser",JSON.stringify(this.currentUser))
     }
+    // if(this.currentBalance){
+    //   localStorage.setItem("currentBalance",JSON.stringify(this.currentBalance))
+    // }
   }
 
   getDetails(){
-    this.users=JSON.parse(localStorage.getItem("users")||"")
+    if(localStorage.getItem("users")){
+      this.users=JSON.parse(localStorage.getItem("users")||"")
+    }
+
+    if(localStorage.getItem("currentAcc")){
+      this.currentAcc=JSON.parse(localStorage.getItem("currentAcc")||"")
+    }
 
     if(localStorage.getItem("currentUser")){
       this.currentUser=JSON.parse(localStorage.getItem("currentUser")||"")
     }
+    // if(localStorage.getItem("currentBalance")){
+    //   this.currentUser=JSON.parse(localStorage.getItem("currentBalance")||"")
+    // }
+  }
+
+  getTransaction(){
+    // let balance=this.users[this.currentUser]["balance"]
+    return this.users[this.currentAcc].transaction
   }
 
   login(acno:any,pwd:any){
@@ -40,7 +63,12 @@ export class DataService {
     if(acno in userDetails){
       if(pwd==userDetails[acno]["password"]){
          this.currentUser=userDetails[acno]["username"]
+         this.getTransaction()
+         this.currentAcc=acno
+         this.currentBalance=userDetails[acno]["balance"]
          this.saveDetails()
+         console.log(this.currentUser);
+         
          return 1
       }
       else{
@@ -62,7 +90,8 @@ export class DataService {
           acno,
           username,
           password,
-          balance:0
+          balance:0,
+          transaction:[]
         }
         this.saveDetails()
         return true;
@@ -76,6 +105,10 @@ export class DataService {
     if(acno in accDetails){
       if(password == accDetails[acno]["password"]){
         accDetails[acno]["balance"]+=amt
+        accDetails[acno].transaction.push({
+          amount:amt,
+          type:"CREDIT"
+        })
         this.saveDetails()
         return accDetails[acno]["balance"];
       }
@@ -98,6 +131,10 @@ export class DataService {
         }
         else{
           accDetails[acno]["balance"]-=amt
+          accDetails[acno].transaction.push({
+            amount:amt,
+            type:"DEBIT"
+          })
           this.saveDetails()
           return accDetails[acno]["balance"]
         }
