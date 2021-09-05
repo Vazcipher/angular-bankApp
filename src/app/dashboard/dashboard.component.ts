@@ -29,7 +29,8 @@ export class DashboardComponent implements OnInit {
     pwd1:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]*'),Validators.minLength(4)]],
     amount1:['',[Validators.required,Validators.pattern('[0-9]*'),Validators.minLength(4)]]
   })
-  user=this.db.currentUser
+  userName=localStorage.getItem("userName")
+  acno:any
   constructor(private db:DataService,private router:Router,private fb:FormBuilder) { }
 
  
@@ -38,19 +39,26 @@ export class DashboardComponent implements OnInit {
   deposit(){
 
     if(this.depositForm.valid){
-      var acno=this.depositForm.value.accno;
-    var password=this.depositForm.value.pwd
-    var amount=this.depositForm.value.amount
+      var acno=this.depositForm.value.accno
+      var password=this.depositForm.value.pwd
+      var amount=this.depositForm.value.amount
 
-    let result=this.db.deposit(acno,password,amount)
-    if(result){
-      alert(amount+"Depositer Successfully. Balance is:"+result)
-    }
+    this.db.deposit(acno,password,amount).subscribe((result:any)=>{
+      if(result){
+        alert(result.message)
+      }
+    },(result)=>{
+      alert(result.error.message)
+    })
     }
     else{
       alert("Invalid Form")
     }
     
+  }
+
+  deletAcc(){
+    this.acno=localStorage.getItem("currentAcc")
   }
 
   withdraw(){
@@ -59,15 +67,33 @@ export class DashboardComponent implements OnInit {
       var acno=this.withdrawFrom.value.accno1
       var pwd=this.withdrawFrom.value.pwd1
       var amount=this.withdrawFrom.value.amount1
-      let result =this.db.withdrawal(acno,pwd,amount)
-  
-      if(result){
-        alert(amount +"Successfully withdrowed, Balance is:"+result)
-        this.router.navigateByUrl("dashboard")
-      }
+
+      this.db.withdrawal(acno,pwd,amount).subscribe((result:any)=>{
+        if(result){
+          alert(result.message)
+          this.router.navigateByUrl("dashboard")
+        }
+      },(result)=>{
+        alert(result.error.message)
+      })
     }
     else{
       alert("Invalid From")
     }
+  }
+
+  onDelete(acno:any){
+    this.db.deleteAcc(acno).subscribe((result:any)=>{
+      if(result){
+        alert(result.message)
+        this.router.navigateByUrl("")
+      }
+    },(result)=>{
+      alert(result.error.message)
+    })
+  }
+  
+  cancel(){
+    this.acno=""
   }
 }

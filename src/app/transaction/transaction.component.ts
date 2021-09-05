@@ -9,10 +9,18 @@ import { DataService } from '../services/data.service';
 export class TransactionComponent implements OnInit {
   currentBalance:any
   transactions:any
+  acno:any
   constructor(public ds:DataService) {
-    this.transactions=this.ds.getTransaction()
-    this.currentBalance=this.ds.currentBalance
-    console.log(this.currentBalance);
+    this.acno=localStorage.getItem("currentAcc")
+    this.ds.getTransaction(this.acno).subscribe((result:any)=>{
+      if(result){
+        this.transactions=result.transaction
+        this.currentBalance=result.balance
+        console.log(result);
+      }
+    })
+    // this.currentBalance=this.ds.currentBalance
+    // console.log(this.currentBalance);
     
     // let currentBalance=this.ds.getTransaction()
    }

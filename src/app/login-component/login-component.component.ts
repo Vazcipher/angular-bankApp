@@ -35,19 +35,29 @@ export class LoginComponentComponent implements OnInit {
       var uname=this.loginForm.value.acno;
       var password=this.loginForm.value.pwd;
   
-      var LogInResult=this.ds.login(uname,password)
+      this.ds.login(uname,password).subscribe((result:any)=>{
+        if(result){
+          alert(result.message)
+          localStorage.setItem("userName",result.userName)
+          localStorage.setItem("currentAcc",result.currentAcc)
+          this.router.navigateByUrl("dashboard")
+        }
+      },(result)=>{
+        alert(result.error.message)
+      }
+      )
       // console.log(LogInResult);
       
-      if(LogInResult==1){
-            alert("Login success")
-            this.router.navigateByUrl("dashboard")
-      }
-      else if(LogInResult==-1){
-        alert("Invalid Passsword")
-      }
-      else{
-        alert("Invalid User")
-      }
+      // if(LogInResult==1){
+      //       alert("Login success")
+      //       this.router.navigateByUrl("dashboard")
+      // }
+      // else if(LogInResult==-1){
+      //   alert("Invalid Passsword")
+      // }
+      // else{
+      //   alert("Invalid User")
+      // }
     }
     else{
       alert("Invalid Form")
